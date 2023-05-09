@@ -32,12 +32,12 @@ function App() {
 	return (
 		<main>
 			<h1>Random Cat Fact App</h1>
+			<button onClick={getRandomFact}>Refresh Fact</button>
 			<h2>{fact}</h2>
 			<img
 				src={`${CAT_PREFIX_IMAGE_URL}${imageUrl}`}
 				alt={`Image that came from the first three words from the first API`}
 			/>
-			<button onClick={getRandomFact}>Refresh Fact</button>
 		</main>
 	);
 }
