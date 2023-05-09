@@ -1,4 +1,4 @@
-## Prueba técnica para Juniors y Trainees de React en Live Coding. Realizado por el canal de YouTube [midulive](https://www.youtube.com/@midulive)
+## Ejemplo de Prueba técnica para Juniors y Trainees de React en Live Coding. Realizado por el canal de YouTube [midulive](https://www.youtube.com/@midulive)
 
 APIs:
 
