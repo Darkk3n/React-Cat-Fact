@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import { getRandomFact } from "./services/facts";
 
 function App() {
 	const [fact, setFact] = useState("");
@@ -7,20 +8,22 @@ function App() {
 
 	const CAT_PREFIX_IMAGE_URL = "https://cataas.com";
 
-	const getRandomFact = () => {
-		fetch("https://catfact.ninja/fact")
-			.then((res) => res.json())
-			.then((data) => setFact(data.fact));
+	const handleClick = async () => {
+		const newFact = await getRandomFact();
+		setFact(newFact);
 	};
 
-	useEffect(getRandomFact, []);
+	useEffect(() => {
+		handleClick().then((newFact) => setFact(newFact));
+		//This is another option but it's the same as the previous line
+		// handleClick().then(setFact());
+	}, []);
 
 	useEffect(() => {
 		if (!fact) return;
 		const threeFirstWords = fact.split(" ", 3).join(" ");
-		//Seems like  the 2nd API is not working
 		fetch(
-			`https://cataas.com/cat/says/${threeFirstWords}?size=50&color=red&json=true`
+			`${CAT_PREFIX_IMAGE_URL}/cat/says/${threeFirstWords}?size=50&color=red&json=true`
 		)
 			.then((res) => res.json())
 			.then((response) => {
@@ -32,7 +35,7 @@ function App() {
 	return (
 		<main>
 			<h1>Random Cat Fact App</h1>
-			<button onClick={getRandomFact}>Refresh Fact</button>
+			<button onClick={handleClick}>Refresh Fact</button>
 			{fact && <p>{fact}</p>}
 			{imageUrl && (
 				<img
