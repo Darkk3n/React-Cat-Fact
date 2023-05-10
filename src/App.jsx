@@ -1,22 +1,14 @@
-import { useEffect, useState } from "react";
 import "./App.css";
+import { useCatFact } from "./hooks/useCatFact";
 import { useCatImage } from "./hooks/useCatImage";
-import { getRandomFact } from "./services/facts";
 
 function App() {
-	const [fact, setFact] = useState("");
-	const { imageUrl } = useCatImage({ fact });
 	const CAT_PREFIX_IMAGE_URL = "https://cataas.com";
-
-	useEffect(() => {
-		handleClick().then((newFact) => setFact(newFact));
-		//This is another option but it's the same as the previous line
-		// handleClick().then(setFact());
-	}, []);
+	const { fact, refreshFact } = useCatFact();
+	const { imageUrl } = useCatImage({ fact });
 
 	const handleClick = async () => {
-		const newFact = await getRandomFact();
-		setFact(newFact);
+		refreshFact();
 	};
 
 	return (
