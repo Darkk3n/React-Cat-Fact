@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import { useCatImage } from "./hooks/useCatImage";
 import { getRandomFact } from "./services/facts";
 
 function App() {
 	const [fact, setFact] = useState("");
-	const [imageUrl, setImageUrl] = useState("");
-
+	const { imageUrl } = useCatImage({ fact });
 	const CAT_PREFIX_IMAGE_URL = "https://cataas.com";
-
-	const handleClick = async () => {
-		const newFact = await getRandomFact();
-		setFact(newFact);
-	};
 
 	useEffect(() => {
 		handleClick().then((newFact) => setFact(newFact));
@@ -19,18 +14,10 @@ function App() {
 		// handleClick().then(setFact());
 	}, []);
 
-	useEffect(() => {
-		if (!fact) return;
-		const threeFirstWords = fact.split(" ", 3).join(" ");
-		fetch(
-			`${CAT_PREFIX_IMAGE_URL}/cat/says/${threeFirstWords}?size=50&color=red&json=true`
-		)
-			.then((res) => res.json())
-			.then((response) => {
-				const { url } = response;
-				setImageUrl(url);
-			});
-	}, [fact]);
+	const handleClick = async () => {
+		const newFact = await getRandomFact();
+		setFact(newFact);
+	};
 
 	return (
 		<main>
