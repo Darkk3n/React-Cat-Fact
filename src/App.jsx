@@ -3,7 +3,6 @@ import { useCatFact } from "./hooks/useCatFact";
 import { useCatImage } from "./hooks/useCatImage";
 
 function App() {
-	const CAT_PREFIX_IMAGE_URL = "https://cataas.com";
 	const { fact, refreshFact } = useCatFact();
 	const { imageUrl } = useCatImage({ fact });
 
@@ -18,7 +17,7 @@ function App() {
 			{fact && <p>{fact}</p>}
 			{imageUrl && (
 				<img
-					src={`${CAT_PREFIX_IMAGE_URL}${imageUrl}`}
+					src={imageUrl}
 					alt={`Image that came from the first three words from the first API`}
 				/>
 			)}
